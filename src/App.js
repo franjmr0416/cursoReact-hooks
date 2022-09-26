@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import { useState } from "react";
+//reglas de los hooks:
+//1. No se llaman en loops, condiciones ni while ni nada
+//siempre en el nivel mas alto de la funcion
+//2. Solo se llaman en 2 partes:
+//-Componentes de react
+//-Custom hooks (cuando creamos un custom hook use<Nombre>)
+const App = () => {
+  const [contador, setContador] = useState(0);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      Contador: {contador}
+      <button onClick={() => setContador(contador + 1)}>Incrementar</button>
     </div>
   );
-}
-
+};
 export default App;
