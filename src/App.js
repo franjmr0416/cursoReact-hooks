@@ -5,12 +5,23 @@ import { useState } from "react";
 //2. Solo se llaman en 2 partes:
 //-Componentes de react
 //-Custom hooks (cuando creamos un custom hook use<Nombre>)
+
+const useContador = (inicial) => {
+  //hook useState
+  const [contador, setContador] = useState(inicial);
+  const incrementar = () => {
+    setContador(contador + 1);
+  };
+  return [contador, incrementar];
+};
+
 const App = () => {
-  const [contador, setContador] = useState(0);
+  //custom hook
+  const [contador, incrementar] = useContador(0);
   return (
     <div>
       Contador: {contador}
-      <button onClick={() => setContador(contador + 1)}>Incrementar</button>
+      <button onClick={incrementar}>Incrementar</button>
     </div>
   );
 };
