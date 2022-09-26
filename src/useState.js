@@ -15,7 +15,7 @@ const useContador = (inicial) => {
   return [contador, incrementar];
 };
 
-const App = () => {
+const useState = () => {
   //custom hook
   const [contador, incrementar] = useContador(0);
   return (
@@ -25,4 +25,4 @@ const App = () => {
     </div>
   );
 };
-export default App;
+export default useState;

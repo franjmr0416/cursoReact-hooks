@@ -9,6 +9,14 @@ const useContador = (inicial) => {
   return [contador, incrementar];
 };
 
+const Interval = ({ contador }) => {
+  useEffect(() => {
+    const i = setInterval(() => console.log(contador), 1000); //suscripción
+    return () => clearInterval(i); //logica de desuscripción
+  }, [contador]);
+  return <p>Intervalo</p>;
+};
+
 const App = () => {
   //custom hook
   const [contador, incrementar] = useContador(0);
@@ -20,6 +28,7 @@ const App = () => {
     <div>
       Contador: {contador}
       <button onClick={incrementar}>Incrementar</button>
+      <Interval contador={contador} />
     </div>
   );
 };
