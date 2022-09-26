@@ -1,34 +1,35 @@
-import { useState, useEffect } from "react";
+import { useReducer, useState } from "react";
 
-const useContador = (inicial) => {
-  //hook useState
-  const [contador, setContador] = useState(inicial);
-  const incrementar = () => {
-    setContador(contador + 1);
-  };
-  return [contador, incrementar];
-};
+//const state = {contador: 0}
+const inicial = { contador: 0 };
 
-const Interval = ({ contador }) => {
-  useEffect(() => {
-    const i = setInterval(() => console.log(contador), 1000); //suscripción
-    return () => clearInterval(i); //logica de desuscripción
-  }, [contador]);
-  return <p>Intervalo</p>;
+//action = {type: string, payload: any}
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "incrementar":
+      return { contador: state.contador + 1 };
+    case "decrementar":
+      return { contador: state.contador - 1 };
+    case "set":
+      return { contador: action.payload };
+    default:
+      return state;
+  }
 };
 
 const App = () => {
-  //custom hook
-  const [contador, incrementar] = useContador(0);
-  //hook useEffect
-  useEffect(() => {
-    document.title = contador;
-  }, [contador]);
+  const [state, dispatch] = useReducer(reducer, inicial);
+  const [valor, setValor] = useState(0);
+
   return (
     <div>
-      Contador: {contador}
-      <button onClick={incrementar}>Incrementar</button>
-      <Interval contador={contador} />
+      Contador: {state.contador}
+      <input value={valor} onChange={(e) => setValor(e.target.value)} />
+      <button onClick={() => dispatch({ type: "incrementar" })}>Más</button>
+      <button onClick={() => dispatch({ type: "decrementar" })}>Menos</button>
+      <button onClick={() => dispatch({ type: "set", payload: valor })}>
+        Set
+      </button>
     </div>
   );
 };
